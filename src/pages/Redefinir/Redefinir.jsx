@@ -20,7 +20,6 @@ export default function ForgotPassword() {
 
   return (
     <Container component="main" maxWidth="xs">
-      <Paper elevation={2} sx={{ mt: 8, p: 2, display: 'flex', flexDirection: 'column', alignItems: 'center', boxShadow: "0" }}></Paper>
       <CssBaseline />
       <Box
         sx={{

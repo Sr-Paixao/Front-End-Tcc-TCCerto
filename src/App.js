@@ -7,6 +7,7 @@ import ProtectedRouter from "./protectedRouter";
 
 //Pages
 import Login from "./pages/Login/Login";
+import Cadastro from "./pages/Cadastro/Cadastro";
 import Redefinir from "./pages/Redefinir/Redefinir"
 import Validacao from "./pages/Validacao/Validacao"
 import Validacao2 from "./pages/Validacao 2/Validacao2"
@@ -22,6 +23,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/login" element={<Login />} />
+          <Route path="/cadastro" element={<Cadastro />} />
           <Route path="/redefinir" element={<Redefinir />} />
           <Route path="/validacao" element={<Validacao />} />
           <Route path="/validacao2" element={<Validacao2 />} />

@@ -29,7 +29,7 @@ export default function Configuracoes() {
                 variant="square"
                 />
                 <Typography variant="subtitle1" sx={{ textAlign: 'left' }}>
-                    MEMBRO ARROMBADO
+                    MEMBRO 1
                 </Typography>
                 <Button variant='contained' color='error'>
                     Remover
@@ -44,7 +44,7 @@ export default function Configuracoes() {
                 variant="square"
                 />
                 <Typography variant="subtitle1" sx={{ textAlign: 'left' }}>
-                    MEMBRO ARROMBADO 
+                    MEMBRO 2 
                 </Typography>
                 <Button variant='contained' color='error'>
                     Remover
@@ -59,7 +59,7 @@ export default function Configuracoes() {
                 variant="square"
                 />
                 <Typography variant="subtitle1" sx={{ textAlign: 'left' }}>
-                    MEMBRO ARROMBADO
+                    MEMBRO 3
                 </Typography>
                 <Button variant='contained' color='error'>
                     Remover
