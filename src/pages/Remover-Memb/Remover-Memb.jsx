@@ -31,7 +31,7 @@ export default function Configuracoes() {
                 <Typography variant="subtitle1" sx={{ textAlign: 'left' }}>
                     MEMBRO 1
                 </Typography>
-                <Button variant='contained' color='error'>
+                <Button variant='outlined' color='error'>
                     Remover
                 </Button>
             </Box>
@@ -46,7 +46,7 @@ export default function Configuracoes() {
                 <Typography variant="subtitle1" sx={{ textAlign: 'left' }}>
                     MEMBRO 2 
                 </Typography>
-                <Button variant='contained' color='error'>
+                <Button variant='outlined' color='error'>
                     Remover
                 </Button>
             </Box>
@@ -61,7 +61,7 @@ export default function Configuracoes() {
                 <Typography variant="subtitle1" sx={{ textAlign: 'left' }}>
                     MEMBRO 3
                 </Typography>
-                <Button variant='contained' color='error'>
+                <Button variant='outlined' color='error'>
                     Remover
                 </Button>
             </Box>
