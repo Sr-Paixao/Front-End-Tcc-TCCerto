@@ -9,10 +9,65 @@ import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Logo from '../../img/logo.svg'
+import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { toast } from "react-toastify";
+import api from "../../api";
+
+
 
 const theme = createTheme();
 
+
 export default function SignIn() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const navigate = useNavigate();
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    navigate("/cadastro");
+  };
+
+  async function handleLogin(e) {
+    e.preventDefault();
+
+    try {
+      const dataLogin = {
+        email,
+        password,
+      };
+
+      const { data } = await api.post("/usuarios", dataLogin);
+      toast.success(`Bem vindo, ${data.data} !`, {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        })
+
+      sessionStorage.setItem("login", true);
+      sessionStorage.setItem("jwt", data.token);
+      navigate("/");
+    } catch (err) {
+      toast("Erro", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+    }
+  }
+
   return (
     <ThemeProvider theme={theme}>
         <Paper elevation={2} sx={{ mt: 8, p: 2, display: 'flex', flexDirection: 'column', alignItems: 'center', boxShadow: "0" }}>
@@ -26,7 +81,7 @@ export default function SignIn() {
           <Typography component="h1" variant="h5" style={{color :"#07382E" , marginBottom: 4, fontWeight: 'bold' }}>
             Login
           </Typography>
-          <Box component="form" noValidate sx={{ mt: 1 }}>
+          <Box component="form" onSubmit={handleLogin} noValidate sx={{ mt: 1 }}>
             <TextField
               margin="normal"
               required
@@ -34,6 +89,8 @@ export default function SignIn() {
               id="email"
               label="E-Mail"
               name="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               autoComplete="email"
               autoFocus
               sx={{
@@ -58,6 +115,8 @@ export default function SignIn() {
               label="Senha"
               type="password"
               id="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
               autoComplete="current-password"
               sx={{
                 '& label.Mui-focused': {
@@ -89,7 +148,7 @@ export default function SignIn() {
               Entrar
             </Button>
             <Button
-              type="submit"
+              onClick={handleSubmit}
               fullWidth
               variant="outlined"
               sx={{ mt: -1, mb: 2, backgroundColor:"#fff", color: "#07382E",  borderColor: '#07382E', '&:hover': {borderColor: '#07382E', backgroundColor: 'transparent',}, }}
