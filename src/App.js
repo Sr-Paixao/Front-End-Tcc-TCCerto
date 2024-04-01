@@ -17,6 +17,8 @@ import Gerenciar from "./pages/Gerenciar-Equip/Gerenciar"
 import GerenciarMemb from "./pages/Gerenciar-Memb/Gerenciar-memb"
 import RemoverMemb from "./pages/Remover-Memb/Remover-Memb"
 import CriarGrupo from "./pages/CriarGrupo/CriarGrupo"
+import Perfil from "./pages/Perfil/Perfil"
+import Tarefas from "./pages/Tarefas/Tarefas"
 
 function App() {
   return (
@@ -34,6 +36,8 @@ function App() {
           <Route path="/gerenciarmemb" element={<GerenciarMemb />} />\
           <Route path="/removermemb" element={<RemoverMemb />} />
           <Route path="/criargrupo" element={<CriarGrupo />} />
+          <Route path="/perfil" element={<Perfil />} />
+          <Route path="/tarefas" element={<Tarefas/>}/>
         </Routes>
       </BrowserRouter>
     </div>

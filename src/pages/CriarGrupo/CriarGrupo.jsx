@@ -73,7 +73,7 @@ export default function ForgotPassword() {
             type="submit"
             fullWidth
             variant="outlined"
-            sx={{ mt: 3, mb: 2, backgroundColor:"#fff", color: "#07382E", borderColor: '#07382E','&:hover': {borderColor: '#07382E',backgroundColor: 'transparent', }, }}
+            sx={{ mt: 3, mb: 2 , backgroundColor:"#fff", color: "#07382E", borderColor: '#07382E','&:hover': {borderColor: '#07382E',backgroundColor: 'transparent', }, }}
           >
             Criar Grupo
           </Button>
