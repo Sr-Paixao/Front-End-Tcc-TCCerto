@@ -1,11 +1,9 @@
-import "./App.css";
-
+import React, { useEffect } from 'react';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import ProtectedRouter from "./protectedRouter";
+import api from './api.js';
 
-
-
-//Pages
+// Importe suas páginas aqui
 import Login from "./pages/Login/Login";
 import Cadastro from "./pages/Cadastro/Cadastro";
 import Redefinir from "./pages/Redefinir/Redefinir"
@@ -19,25 +17,31 @@ import RemoverMemb from "./pages/Remover-Memb/Remover-Memb"
 import CriarGrupo from "./pages/CriarGrupo/CriarGrupo"
 
 function App() {
-  return (
-    <div className="App">
-      <BrowserRouter>
-        <Routes>
-          <Route path="/login" element={<Login />} />
-          <Route path="/cadastro" element={<Cadastro />} />
-          <Route path="/redefinir" element={<Redefinir />} />
-          <Route path="/validacao" element={<Validacao />} />
-          <Route path="/validacao2" element={<Validacao2 />} />
-          <Route path="/validacao3" element={<Validacao3 />} />
-          <Route path="/desfazer" element={<Desfazer />} />
-          <Route path="/gerenciar" element={<Gerenciar />} />
-          <Route path="/gerenciarmemb" element={<GerenciarMemb />} />\
-          <Route path="/removermemb" element={<RemoverMemb />} />
-          <Route path="/criargrupo" element={<CriarGrupo />} />
-        </Routes>
-      </BrowserRouter>
-    </div>
-  );
+    useEffect(() =>{
+        api.get('usuarios').then(res=>{
+          console.log(res);
+        })
+    }, [])
+
+    return (
+        <div className="App">
+            <BrowserRouter>
+                <Routes>
+                    <Route path="/login" element={<Login />} />
+                    <Route path="/cadastro" element={<Cadastro />} />
+                    <Route path="/redefinir" element={<Redefinir />} />
+                    <Route path="/validacao" element={<Validacao />} />
+                    <Route path="/validacao2" element={<Validacao2 />} />
+                    <Route path="/validacao3" element={<Validacao3 />} />
+                    <Route path="/desfazer" element={<Desfazer />} />
+                    <Route path="/gerenciar" element={<Gerenciar />} />
+                    <Route path="/gerenciarmemb" element={<GerenciarMemb />} />
+                    <Route path="/removermemb" element={<RemoverMemb />} />
+                    <Route path="/criargrupo" element={<CriarGrupo />} />
+                </Routes>
+            </BrowserRouter>
+        </div>
+    );
 }
 
 export default App;

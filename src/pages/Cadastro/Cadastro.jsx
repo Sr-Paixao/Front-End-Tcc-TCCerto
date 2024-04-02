@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useState } from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
@@ -11,11 +11,63 @@ import Logo from '../../img/logo.svg'
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
+import axios from 'axios';
 import { Menu, NativeSelect } from '@mui/material';
+import {getFunction} from "../../services/ApiService.js";
+
 
 const theme = createTheme();
 
 export default function SignIn() {
+  const initialFormData = ({
+    name: '',
+    email:'',
+    'smartphone-number': '',
+    password: '',
+    'confirm-password': '',
+    curso:'',
+    funcao:''
+
+  });
+
+  const [formData, setFormData] = useState(initialFormData);
+  const [selectedType, setSelectedType] = useState('');
+  const[sucessMessage, setSuccessMessage] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+    if (name === 'funcao') {
+      setSelectedType(value);
+    }
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try{
+
+      const response = await axios.post('http://localhost:3000/api/usuario', {
+      nome: formData.name,
+      email: formData.email,
+      celular: formData['smartphone-number'],
+      senha: formData.password,
+      curso: formData.curso, // Adicione os campos de curso e tipo de usuário aqui
+      tipoUsuario: selectedType
+    });
+      console.log('Dados enviados para o backend:', response.data); 
+      setSuccessMessage('Usuário cadastrado com sucesso');
+      setErrorMessage('');
+      setFormData(initialFormData); 
+
+    } catch (error){
+      console.error('Erro ao cadastrar usuário:', error); 
+      setErrorMessage('Erro ao cadastrar usuário. Por favor, tente novamente.');
+      setSuccessMessage('');
+    }
+  };
+
   return (
     <ThemeProvider theme={theme}>
         <Paper elevation={2} sx={{ mt: 8, p: 2, display: 'flex', flexDirection: 'column', alignItems: 'center', boxShadow: "0" }}>
@@ -29,7 +81,7 @@ export default function SignIn() {
           <Typography component="h1" variant="h5" style={{color :"#07382E" , marginBottom: 4, fontWeight: 'bold' }}>
             Cadastro
           </Typography>
-          <Box component="form" noValidate sx={{ mt: 2 }}>
+          <Box component="form" noValidate sx={{ mt: 2 }} onSubmit={handleSubmit}>
             <TextField
               margin="normal"
               required
@@ -37,7 +89,9 @@ export default function SignIn() {
               id="name"
               label="Seu Nome"
               name="name"
-              autoComplete="email"
+              autoComplete="name"
+              value={formData.name}
+              onChange={handleChange}
               sx={{
                 '& label.Mui-focused': {
                   color: '#07382E',
@@ -60,6 +114,8 @@ export default function SignIn() {
                     label="E-Mail"
                     id="email"
                     autoComplete="email-password"
+                    value={formData.email}
+                    onChange={handleChange}
                     sx={{
                         '& label.Mui-focused': {
                             color: '#07382E',
@@ -89,6 +145,8 @@ export default function SignIn() {
                     name="smartphone-number"
                     label="Numero do Celular"
                     id="smartphone-number"
+                    value={formData['smartphone-number']}
+                    onChange={handleChange}
                     sx={{
                 '& label.Mui-focused': {
                     color: '#07382E',
@@ -112,6 +170,8 @@ export default function SignIn() {
                     label="Senha"
                     id="password"
                     autoComplete='current-password'
+                    value={formData.password}
+                    onChange={handleChange}
                     sx={{
                 '& label.Mui-focused': {
                     color: '#07382E',
@@ -128,13 +188,14 @@ export default function SignIn() {
             />
                 <TextField
                     margin="normal"
-                    required
                     fullWidth
                     name="confirm-password"
                     label="Confirme sua senha"
                     type='password'
                     id="confirm-password"
                     autoComplete='current-password'
+                    value={formData['confirm-password']}
+                    onChange={handleChange}
                     sx={{
                 '& label.Mui-focused': {
                     color: '#07382E',
@@ -155,14 +216,17 @@ export default function SignIn() {
                     id="cursos"
                     label="Selecione seu curso"
                     required
+                    fullWidth
+                    value={formData.curso}
+                    onChange={handleChange}
                     sx={{width: '100%' , mt: 2}}
                 >
-                    <MenuItem value={10}>Desenvolvimento De Sistemas</MenuItem>
-                    <MenuItem value={20}>Redes de computadores</MenuItem>
-                    <MenuItem value={30}>Administraçao</MenuItem>
-                    <MenuItem value={40}>Logististica</MenuItem>
-                    <MenuItem value={50}>Automação</MenuItem>
-                    <MenuItem value={60}>Eletroeletronica</MenuItem>
+                    <MenuItem value={'Desenvolvimento De Sistemas'}>Desenvolvimento De Sistemas</MenuItem>
+                    <MenuItem value={'Redes de computadores'}>Redes de computadores</MenuItem>
+                    <MenuItem value={'Administraçao'}>Administraçao</MenuItem>
+                    <MenuItem value={'Logististica'}>Logististica</MenuItem>
+                    <MenuItem value={'Automação'}>Automação</MenuItem>
+                    <MenuItem value={'Eletroeletronica'}>Eletroeletronica</MenuItem>
                 </Select>
 
                 <Select
@@ -170,11 +234,14 @@ export default function SignIn() {
                     id="funcao"
                     label="Selecione sua função"
                     required
+                    fullWidth
+                    value={formData.funcao}
+                    onChange={handleChange}
                     sx={{width: '100%' , mt: 2}}
                 >
-                    <MenuItem value={10}>Lider do Grupo</MenuItem>
-                    <MenuItem value={20}>Membro do grupo</MenuItem>
-                    <MenuItem value={30}>Orientador</MenuItem>
+                    <MenuItem value={'LIDER'}>Lider do Grupo</MenuItem>
+                    <MenuItem value={'MEMBRO DE GRUPO'}>Membro do grupo</MenuItem>
+                    <MenuItem value={'ORIENTADOR'}>Orientador</MenuItem>
                 </Select>
 
             </Box>
